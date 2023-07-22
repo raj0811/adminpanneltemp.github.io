@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <h1>Login Page</h1>
+    </div>
+    <form action="/auth/login" method="post" id="login">
+      <div class="login-form" id="loginform">
+        <form>
+          <div class="floating-input">
+            <input type="text" id="username" name="username" required />
+            <label for="username">Phone number</label>
+          </div>
+
+          <div class="floating-input">
+            <input type="password" id="password" name="password" required />
+            <label for="password">Password</label>
+          </div>
+
+          <!-- <input
+            type="submit"
+            value="Login"
+            class="login-button"
+            style="width: 55px"
+          /> -->
+            <a
+              href="subadminwelcome.html"
+              type="submit"
+              value="Login"
+              class="login-button"
+              style="width: 55px"
+              >Login</a
+            >
+          </button>
+          <p>
+            <a href="signuppage.html" class="signup"
+              >Don't have an account?Create an account</a
+            >
+          </p>
+        </form>
+      </div>
+    </form>
+  <script>
+    const loginForm = document.getElementById('login');
+
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(login);
+      const username = formData.get('username');
+      const password = formData.get('password');
+
+      // Send login credentials to the server using fetch API
+      fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors that occur during the fetch request
+        console.error('Error:', error);
+      });
+    });
+  </script>
+  </body>
+</html>

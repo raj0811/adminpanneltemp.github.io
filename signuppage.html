@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div style="padding-top: 13px">
+        <a class="backbutton" href="loginpage.html">🡠</a>
+      </div>
+      <h1>Signup Page</h1>
+    </div>
+
+    <div class="signup-form">
+      <form action="/auth/signup" method="post" id="signupForm">
+        <div class="floating-input">
+          <input type="text" id="username" name="username" required />
+          <label for="username">Username</label>
+        </div>
+
+        <div class="floating-input">
+          <input type="password" id="password" name="password" required />
+          <label for="password">Password</label>
+        </div>
+        <div class="floating-input">
+          <input type="text" id="phonenumber" name="username" required />
+          <label for="username">Phone Number</label>
+        </div>
+
+        <div class="floating-input">
+          <input type="password" id="address" name="password" required />
+          <label for="password">Address</label>
+        </div>
+        <input type="submit" value="Sign up" class="signup-button" />
+      </form>
+    </div>
+    <script>
+      const signupForm = document.getElementById("signupForm");
+
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(signupForm);
+        const username = formData.get("username");
+        const phonenumber = formData.get("phonenumber");
+        const password = formData.get("password");
+        const address = formData.get("address");
+
+        // Send signup data to the server using fetch API
+        fetch("http://localhost:3000/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, email, password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            // Handle any errors that occur during the fetch request
+            console.error("Error:", error);
+          });
+      });
+    </script>
+  </body>
+</html>

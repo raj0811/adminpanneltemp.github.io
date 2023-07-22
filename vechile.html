@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <style>
+      .menu {
+        margin-bottom: 10px;
+      }
+
+      .arrow-button {
+        background-color: #f0f0f0;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .menu-list {
+        list-style-type: none;
+        margin-top: 0;
+        padding-left: 0;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.2s ease-out;
+      }
+
+      .slide-down.active {
+        max-height: 500px; /* Adjust the maximum height as needed */
+        transition: max-height 0.2s ease-in;
+      }
+
+      .menu2-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .menu2-list li:last-child {
+        border-bottom: none;
+      }
+
+      .menu2-list li button {
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="navbar" style="margin-bottom: 30px">
+      <div style="padding-top: 13px">
+        <a class="backbutton" href="subadminwelcome.html">🡠</a>
+      </div>
+
+      <h1>Vechile</h1>
+    </div>
+    <div class="menu">
+      <button class="arrow-button" style="width: 100%" onclick="toggleMenu(1)">
+        Add Vechile
+      </button>
+      <ul class="menu-list" id="menu1">
+        <form
+          id="menu1-form"
+          style="margin-top: 20px"
+          action="/admin/:area_id/vehicle/"
+          method="post"
+        >
+          <div class="floating-input">
+            <select class="custom-select" name="option1" required>
+              <option value="" disabled selected></option>
+              <option value="car">Car</option>
+              <option value="bike">Bike</option>
+              <option value="bus">Pickup truck</option>
+            </select>
+            <label>Vehicle</label>
+          </div>
+
+          <div class="floating-input">
+            <input type="text" id="price" name="price" required />
+            <label for="username">Price</label>
+          </div>
+
+          <div class="floating-input">
+            <select class="custom-select" name="option2" required></select>
+            <label>Service Area ID</label>
+          </div>
+
+          <div>
+            <input
+              type="button"
+              value="Save"
+              class="save-button"
+              onclick="saveMenu1Data()"
+            />
+          </div>
+        </form>
+      </ul>
+    </div>
+
+    <div class="menu">
+      <button class="arrow-button" style="width: 100%" onclick="toggleMenu(2)">
+        Edit vechile
+      </button>
+      <ol class="menu-list" id="menu2">
+        <!-- Display the saved data from Toggle Menu 1 here -->
+      </ol>
+    </div>
+
+    <script>
+      let menu1Data = {}; // Store data from Toggle Menu 1
+      let menu2Data = []; // Store data from Toggle Menu 2
+
+      function toggleMenu(menuId) {
+        const menu = document.getElementById(`menu${menuId}`);
+        const isActive = menu.classList.contains("active");
+
+        if (isActive) {
+          menu.style.maxHeight = "0";
+        } else {
+          menu.style.maxHeight = menu.scrollHeight + "px";
+        }
+
+        menu.classList.toggle("active");
+      }
+
+      function saveMenu1Data() {
+        const form = document.getElementById("menu1-form");
+        const Vechile = form.elements.option1.value;
+        const price = form.elements.price.value;
+        const option2 = form.elements.option2.value;
+
+        // Store the data from Toggle Menu 1
+        menu1Data = { Vechile, price, option2 };
+
+        // Add the data to Toggle Menu 2
+        menu2Data.push(menu1Data);
+
+        // Clear the form fields in Toggle Menu 1
+        form.reset();
+
+        // Update the saved data in Toggle Menu 2
+        updateMenu2Data();
+      }
+
+      function updateMenu2Data() {
+        const menu2List = document.getElementById("menu2");
+
+        menu2List.innerHTML = "";
+
+        for (let i = 0; i < menu2Data.length; i++) {
+          const data = menu2Data[i];
+
+          const listItem = document.createElement("li");
+          listItem.textContent = `vechile: ${data.Vechile}, Price: ${data.price}, Option 2: ${data.option2}`;
+          listItem.style.margin = "20px";
+
+          const editButton = document.createElement("button");
+          editButton.style.backgroundColor = "#318CE7";
+          editButton.style.color = "white";
+          editButton.style.alignSelf = "centre";
+          editButton.style.border = "2px solid #318CE7";
+          editButton.style.padding = "6px";
+
+          editButton.textContent = "Edit";
+          editButton.style.margin = "20px";
+
+          editButton.addEventListener("click", () => editMenu2Data(i));
+
+          listItem.appendChild(editButton);
+          menu2List.appendChild(listItem);
+        }
+      }
+
+      function editMenu2Data(index) {
+        const form = document.getElementById("menu1-form");
+        const data = menu2Data[index];
+
+        form.elements.option1.value = data.option1;
+        form.elements.price.value = data.price;
+        form.elements.option2.value = data.option2;
+
+        // Remove the edited data from Toggle Menu 2
+        menu2Data.splice(index, 1);
+
+        // Update the saved data in Toggle Menu 2
+        updateMenu2Data();
+      }
+    </script>
+  </body>
+</html>

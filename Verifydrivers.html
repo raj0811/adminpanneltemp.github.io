@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="main.css" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div style="padding-top: 13px">
+        <a class="backbutton" href="subadminwelcome.html">🡠</a>
+      </div>
+      <h1>Drivers</h1>
+    </div>
+    <div class="content">
+      <form>
+        <div class="floating-input">
+          <select class="custom-select" name="option1" required>
+            <option value="" disabled selected></option>
+            <!-- Add your vehicle options here -->
+            <option value="car">Car</option>
+            <option value="bike">Bike</option>
+            <option value="bus">Pickup truck</option>
+          </select>
+          <label>Vehicle</label>
+        </div>
+
+        <div class="floating-input">
+          <select class="custom-select" name="verifiedDrivers" required>
+            <option value="" disabled selected></option>
+            <!-- Add your verified drivers options here -->
+          </select>
+          <label>Verified Drivers</label>
+        </div>
+
+        <div class="floating-input">
+          <select class="custom-select" name="notVerifiedDrivers" required>
+            <option value="" disabled selected></option>
+            <!-- Add your not verified drivers options here -->
+          </select>
+          <label>Not Verified Drivers</label>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

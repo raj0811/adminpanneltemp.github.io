@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+
+      .saved-service-area {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .saved-service-area label {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .saved-service-area ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .saved-service-area li {
+        margin-bottom: 10px;
+      }
+
+      .save-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .save-button:hover {
+        background-color: #45a049;
+      }
+
+      .dropdown-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .dropdown-button:hover {
+        background-color: #555;
+      }
+
+      .dropdown-content {
+        display: none;
+        padding: 10px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        position: absolute;
+        z-index: 1;
+      }
+
+      .dropdown-content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .dropdown-content li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div style="padding-top: 13px">
+        <a class="backbutton" href="subadminwelcome.html">🡠</a>
+      </div>
+      <h1>Service Area</h1>
+    </div>
+
+    <div class="saved-service-area" id="savedServiceArea" style="display: none">
+      <h2>Saved Service Area</h2>
+      <ul id="savedServiceList"></ul>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="save-form" style="margin: 40px auto">
+      <form id="serviceForm" action="/serviceareas/" method="post">
+        <div class="floating-input">
+          <input type="text" id="radius" name="radius" required />
+          <label for="Radius">Radius</label>
+        </div>
+
+        <div class="floating-input">
+          <input type="text" id="latitude" name="Latitude" required />
+          <label for="password">Latitude</label>
+        </div>
+        <div class="floating-input">
+          <input type="text" id="longitude" name="longitude" required />
+          <label for="username">Longitude</label>
+        </div>
+        <div style="text-align: center">
+          <input type="submit" value="Save" class="save-button" />
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <button class="dropdown-button" id="dropdownButton">
+        Show Saved Areas
+      </button>
+      <div class="dropdown-content" id="dropdownContent"></div>
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7WwyYngEPNDH6IV61G5q2CAKKJTH0b9E&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+
+    <script src="location.js"></script>
+  </body>
+</html>
